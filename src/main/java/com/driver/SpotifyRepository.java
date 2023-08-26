@@ -2,9 +2,11 @@ package com.driver;
 
 import java.util.*;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Repository
+
 public class SpotifyRepository {
     public HashMap<Artist, List<Album>> artistAlbumMap;
     public HashMap<Album, List<Song>> albumSongMap;
@@ -38,36 +40,66 @@ public class SpotifyRepository {
     }
 
     public User createUser(String name, String mobile) {
+        User user= new User();// new born
+        user.setMobile(mobile);
+        user.setName(name);
+        users.add(user);
+        return user;
     }
 
     public Artist createArtist(String name) {
+        Artist artist= new Artist();
+        artist.setName(name);
+        artists.add(artist);
+        return artist;
+
     }
 
     public Album createAlbum(String title, String artistName) {
+        boolean flag = false;
+        for( Artist artist  : artists) {
+            if(artist.getName().equals(artistName)) {
+                flag = true;
+            }
+
+        }
+        if(flag = false) {
+            Artist artist1 = new Artist();
+            artist1.setName(artistName);
+            artists.add(artist1);
+        }
+        Album album = new Album();
+        album.setTitle(title);
+        // LocalDate customDate = LocalDate.of(2021, 7, 15);
+        Date currentDate = new Date();
+        album.setReleaseDate(currentDate);
+        albums.add(album);
+        return album;
+
     }
-
-    public Song createSong(String title, String albumName, int length) throws Exception{
-    }
-
-    public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
-
-    }
-
-    public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
-
-    }
-
-    public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
-
-    }
-
-    public Song likeSong(String mobile, String songTitle) throws Exception {
-
-    }
-
-    public String mostPopularArtist() {
-    }
-
-    public String mostPopularSong() {
-    }
+//
+//    public Song createSong(String title, String albumName, int length) throws Exception{
+//    }
+//
+//    public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
+//
+//    }
+//
+//    public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
+//
+//    }
+//
+//    public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
+//
+//    }
+//
+//    public Song likeSong(String mobile, String songTitle) throws Exception {
+//
+//    }
+//
+//    public String mostPopularArtist() {
+//    }
+//
+//    public String mostPopularSong() {
+//    }
 }
